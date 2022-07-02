@@ -1,6 +1,7 @@
 import { useState ,useEffect} from 'react'
-import CompanyService from '../../services/companyService';
+import CompanyService from '../../services/CompanyService';
 import { useHistory } from 'react-router-dom';
+import getToken from '../../system'
 
 function ListCompany(){ 
 
@@ -8,20 +9,21 @@ function ListCompany(){
     const history = useHistory();
     const [Companys,setCompanys] = useState([]);
     useEffect(()=>{
-        getAllCompanys()
+      getAllCompanys()
        
     },[]);
 
 
     function getAllCompanys()
 {
-    CompanyService.getCompanys().then((res) => {
+    CompanyService.getAllCompany(getToken).then((res) => {
         setCompanys(res.data);})
 
     }
    function deleteCompany(id){
-    CompanyService.deleteCompany(id).then( res => {
-            setCompanys({Companys: Companys.Companys.filter(Company => Company.id !== id)});
+    CompanyService.deleteCompany(id,getToken).then( res => {
+            setCompanys({Companys:Companys.filter(Company => Company.id !== id)});
+
         });
     }
     function viewCompany(id){
@@ -35,7 +37,7 @@ function ListCompany(){
     
 
     function addCompany(){
-        history.push('/addCompanys');
+        history.push('/addCompany');
     }
 
   
@@ -51,24 +53,24 @@ function ListCompany(){
 
                             <thead>
                                 <tr>
-                                    <th>  First Name</th>
                                     <th>  Name</th>
-                                    <th>  Email </th>
+                                    <th>  telephone number</th>
+                                    <th>  email </th>
                                     <th> Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
                                     Companys.map(
-                                        Company => 
-                                        <tr key = {Companys.id}>
-                                             <td> { Companys.firstName} </td>   
-                                             <td> {Companys.lastName}</td>
-                                             <td> {Companys.emailId}</td>
+                                        company => 
+                                        <tr key = {company.company_id}>
+                                             <td> { company.company_name} </td>   
+                                             <td> {company.telephone_number}</td>
+                                             <td> {company.email_address}</td>
                                              <td>
-                                                 <button onClick={ () => editCompany(Company.id)} className="btn btn-info">Update </button>
-                                                 <button style={{marginLeft: "10px"}} onClick={ () => deleteCompany(Company.id)} className="btn btn-danger">Delete </button>
-                                                 <button style={{marginLeft: "10px"}} onClick={ () => viewCompany(Company.id)} className="btn btn-info">View </button>
+                                                 <button onClick={ () => editCompany(company.company_id)} className="btn btn-info">Update </button>
+                                                 <button style={{marginLeft: "10px"}} onClick={ () => deleteCompany(company.company_id)} className="btn btn-danger">Delete </button>
+                                                 <button style={{marginLeft: "10px"}} onClick={ () => viewCompany(company.company_id)} className="btn btn-info">View </button>
                                              </td>
                                         </tr>
                                     )

@@ -1,23 +1,53 @@
 import { FaSignInAlt, FaSignOutAlt, FaUser } from 'react-icons/fa'
-//import { Link } from 'react-router-dom'
-//import { useSelector, useDispatch } from 'react-redux'
-//import { logout, reset } from '../features/auth/authSlice'
+import { Link, useHistory } from 'react-router-dom'
 
+
+
+
+
+function getToken() {
+  const tokenString = sessionStorage.getItem('token');
+  const userToken = JSON.parse(tokenString);
+  return userToken?.token
+}
 
 function Header() {
+const history = useHistory()
+  const logout = ()=>{
+    sessionStorage.clear()
+    history.push("/Login")
+  }
+
+
+
   return (<header className='header'>
   <div className='logo'>
-    <a>helll
+    gestion employe
 
-    </a>
+
   </div>
   <ul>
-    {/* {user ? (
+
+  
+
+
+    {getToken() ? (<>
       <li>
-        <button className='btn' >
+      <Link to='/employees'>
+         list employee
+      </Link>
+    </li>
+    <li>
+      <Link to='/Companys'>
+        list Company
+      </Link>
+    </li>
+      
+      <li>
+        <button className='btns'  onClick={logout}>
           <FaSignOutAlt /> Logout
         </button>
-      </li>
+      </li></>
     ) : (
       <>
         <li>
@@ -26,8 +56,8 @@ function Header() {
           </Link>
         </li>
         
-      </>
-    } */}
+      </>)
+    }
   </ul>
 </header>
   )

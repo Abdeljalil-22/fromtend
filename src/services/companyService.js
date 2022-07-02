@@ -1,27 +1,52 @@
 import axios from 'axios';
 
-const COMPANY_API_BASE_URL = "http://localhost:5000/Company";
+const COMPANY_API_BASE_URL = "http://localhost:5000/api/v1/Company";
 
 class CompanyService {
 
-    getCompanys(){
-        return axios.get(COMPANY_API_BASE_URL);
+    getAllCompany(token){
+        const config = {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        return axios.get(COMPANY_API_BASE_URL,config);
     }
 
-    createCompany(Company){
-        return axios.post(COMPANY_API_BASE_URL, Company);
+    createCompany(Company,token){
+        const config = {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        return axios.post(COMPANY_API_BASE_URL, Company,config);
     }
 
-    getCompanyById(CompanyId){
-        return axios.get(COMPANY_API_BASE_URL + '/' + CompanyId);
+    getCompanyById(CompanyId,token){
+        const config = {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        return axios.get(COMPANY_API_BASE_URL + '/' + CompanyId,config);
     }
 
-    updateCompany(Company, CompanyId){
-        return axios.put(COMPANY_API_BASE_URL + '/' + CompanyId, Company);
+    updateCompany(Company, CompanyId,token){
+        const config = {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        return axios.put(COMPANY_API_BASE_URL + '/' + CompanyId, Company,config);
     }
 
-    deleteCompany(CompanyId){
-        return axios.delete(COMPANY_API_BASE_URL + '/' + CompanyId);
+    deleteCompany(CompanyId,token){
+        const config = {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        return axios.delete(COMPANY_API_BASE_URL + '/' + CompanyId,config);
     }
 }
 

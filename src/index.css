@@ -135,7 +135,7 @@ h3 {
   margin: 0 0 5px 3px;
 }
 
-.btn {
+.btns {
   padding: 10px 20px;
   border: 1px solid #000;
   border-radius: 5px;
@@ -151,7 +151,7 @@ h3 {
   justify-content: center;
 }
 
-.btn svg {
+.btns svg {
   margin-right: 8px;
 }
 
@@ -160,12 +160,12 @@ h3 {
   color: #000;
 }
 
-.btn-block {
+.btn-blocks {
   width: 100%;
   margin-bottom: 20px;
 }
 
-.btn:hover {
+.btns:hover {
   transform: scale(0.98);
 }
 

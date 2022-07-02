@@ -1,29 +1,29 @@
 import { useState, useEffect } from 'react'
 import { FaSignInAlt } from 'react-icons/fa'
-import PropTypes from 'prop-types';
-//import { useSelector, useDispatch } from 'react-redux'
-//import { useNavigate } from 'react-router-dom'
-//import { toast } from 'react-toastify'
-//import { login, reset } from '../features/auth/authSlice'
-//import Spinner from '../components/Spinner'
+import { useHistory } from 'react-router-dom';
+
 
 
 
 
 async function loginUser(credentials) {
-    return await fetch('http://localhost:8080/login', {
+    return await fetch('http://localhost:5000/api/v1/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(credentials)
+      body: credentials
     })
       .then(data => data.json())
    }
 
-
- function Login({ setToken }) {
+   function setToken(userToken) {
+    sessionStorage.clear();
+    sessionStorage.setItem('token', JSON.stringify(userToken));
+  }
   
+ function Login() {
+  const history = useHistory();
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -40,13 +40,16 @@ async function loginUser(credentials) {
       }
     
 
-const handleSubmit = async e => {
-    e.preventDefault();
-     const token = await loginUser({
-         formData
-     });
+const handleSubmit = async () => {
+   
+     const token = await loginUser(
+      JSON.stringify(formData)
+     );
+   //  console.log(token);
     setToken(token);
-
+   if (token.token){
+    history.push("/employees")
+   }
    
   }
 
@@ -87,7 +90,7 @@ const handleSubmit = async e => {
               </div>
     
               <div className='form-group'>
-                <button type='submit' className='btn btn-block' >
+                <button type='submit' className='btns btn-blocks'  >
                   Submit
                 </button>
               </div>
@@ -96,8 +99,6 @@ const handleSubmit = async e => {
         </>
   );
 }
-Login.propTypes = {
-  setToken: PropTypes.func.isRequired
-}
+
 
 export default Login
