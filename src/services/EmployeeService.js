@@ -4,50 +4,35 @@ const EMPLOYEE_API_BASE_URL = "http://localhost:5000/api/v1/employe";
 
 class EmployeeService {
   
-
-    getEmployees(token){
-        const config = {
+config=  {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
-        return axios.get(EMPLOYEE_API_BASE_URL,config);
+    getEmployees(token){
+        
+        return axios.get(EMPLOYEE_API_BASE_URL,this.config);
     }
 
     createEmployee(employee,token){
-        const config = {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        return axios.post(EMPLOYEE_API_BASE_URL, employee,config);
+       
+        return axios.post(EMPLOYEE_API_BASE_URL, employee,this.config);
     }
 
     getEmployeeById(employeeId,token){
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+     
       }
-        return axios.get(EMPLOYEE_API_BASE_URL + '/' + employeeId,config);
+        return axios.get(EMPLOYEE_API_BASE_URL + '/' + employeeId,this.config);
     }
 
     updateEmployee(employee, employeeId,token){
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-        return axios.put(EMPLOYEE_API_BASE_URL + '/' + employeeId, employee,config);
+      
+        return axios.put(EMPLOYEE_API_BASE_URL + '/' + employeeId, employee,this.config);
     }
 
     deleteEmployee(employeeId,token){
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-        return axios.delete(EMPLOYEE_API_BASE_URL + '/' + employeeId,config);
+     
+        return axios.delete(EMPLOYEE_API_BASE_URL + '/' + employeeId,this.config);
     }
 }
 
